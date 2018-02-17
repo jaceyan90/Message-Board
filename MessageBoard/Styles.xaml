@@ -1,0 +1,432 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:MessageBoard">
+
+    <!-- Toggle button -->
+    <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    <Style TargetType="{x:Type ToggleButton}" x:Key="btnNew">
+        <Setter Property="Content" Value="New Message" />
+        <Setter Property="Margin" Value="20 20 20 10" />
+        <Setter Property="Padding" Value="3" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Style.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Content" Value="Cancel" />
+                <Setter Property="Margin" Value="20 20 20 10" />
+                <Setter Property="Padding" Value="3" />
+                <Setter Property="FontSize" Value="13" />
+                <Setter Property="FontWeight" Value="SemiBold" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- new message input -->
+    <!--<Style TargetType="{x:Type Button}" x:Key="btnCancel">
+        <Setter Property="Margin" Value="0 0 0 10" />
+        <Setter Property="Padding" Value="3" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>-->
+    <Style TargetType="DockPanel" x:Key="newTemplate">
+        <Setter Property="Margin" Value="20 10 20 10" />
+    </Style>
+    <Style TargetType="Border" x:Key="newTemplateBorder">
+        <Setter Property="BorderBrush" Value="LightGray" />
+        <Setter Property="BorderThickness" Value="1" />
+    </Style>
+    <Style TargetType="TextBlock" x:Key="textblockTitle">
+        <Setter Property="Padding" Value="10 5 10 5" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="Width" Value="60" />
+    </Style>
+    <Style TargetType="TextBox" x:Key="textboxTitle">
+        <Setter Property="Padding" Value="10 5 20 5" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+    </Style>
+    <Style TargetType="DockPanel" x:Key="submitPanel">
+        <Setter Property="LastChildFill" Value="False" />
+    </Style>
+    <Style TargetType="Button" x:Key="btnSubmit">
+        <Setter Property="Width" Value="100" />
+        <Setter Property="Margin" Value="0 10 0 10" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
+    <Style TargetType="TextBox" x:Key="newMessage">
+        <Setter Property="Height" Value="150" />
+        <Setter Property="Padding" Value="10" />
+        <Setter Property="Background" Value="#E3F2FD" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="AcceptsReturn" Value="True" />
+    </Style>
+
+    <!-- search area -->
+    <Style TargetType="DockPanel" x:Key="searchPanel1">
+        <Setter Property="Margin" Value="20 10 20 10" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+    </Style>
+    <Style TargetType="Border" x:Key="searchBorder">
+        <Setter Property="BorderBrush" Value="Black" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="5" />
+        <Setter Property="CornerRadius" Value="15" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+    </Style>
+    <Style TargetType="DockPanel" x:Key="searchPanel2">
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+    </Style>
+    <Style TargetType="Image" x:Key="searchIcon">
+        <Setter Property="Width" Value="20" />
+        <Setter Property="Height" Value="20" />
+        <Setter Property="Margin" Value="5 0 0 0" />
+        <Setter Property="Source" Value="/images/search.png" />
+    </Style>
+    <Style TargetType="TextBox" x:Key="search">
+        <Setter Property="Margin" Value="5 0 5 0" />
+        <Setter Property="FontSize" Value="11" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+    </Style>
+
+    <!-- ScrollViewer -->
+    <Style TargetType="ScrollViewer" x:Key="msgScroll">
+        <Setter Property="Margin" Value="20 10 20 20" />
+        <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+    </Style>
+
+    <!-- Listview -->
+    <ControlTemplate x:Key="ListViewControlTemplate" TargetType="{x:Type ListView}">
+        <ItemsPresenter></ItemsPresenter>
+    </ControlTemplate>
+    <Style TargetType="ListView" x:Key="msgList">
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled" />
+    </Style>
+    <Style TargetType="ListViewItem" x:Key="msgListItem">
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Margin" Value="0 5 0 5" />
+    </Style>
+    <Style TargetType="Border" x:Key="msgListItemBorder">
+        <Setter Property="BorderBrush" Value="Gray" />
+        <Setter Property="BorderThickness" Value="1" />
+    </Style>
+    <Style TargetType="Border" x:Key="msgListItemTitleBorder">
+        <Setter Property="BorderBrush" Value="LightGray" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="10" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Key.IsHidden}" Value="true">
+                <Setter Property="BorderBrush" Value="White" />
+                <Setter Property="BorderThickness" Value="1" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    <Style TargetType="Border" x:Key="gpImageBorder">
+        <Setter Property="BorderBrush" Value="Black" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="50" />
+    </Style>
+    <Style TargetType="StackPanel" x:Key="gpImagePanel">
+        <Setter Property="Width" Value="50" />
+        <Setter Property="Height" Value="50" />
+    </Style>
+    <Style TargetType="Image" x:Key="gpImage">
+        <Setter Property="Width" Value="30" />
+        <Setter Property="Height" Value="30" />
+        <Setter Property="Margin" Value="10" />
+        <Setter Property="Source" Value="/images/person.png" />
+    </Style>
+    <Style TargetType="DockPanel" x:Key="msgTitlePanel1">
+        <Setter Property="Height" Value="30" />
+    </Style>
+    <Style TargetType="StackPanel" x:Key="replyPanel">
+        <Setter Property="Width" Value="Auto" />
+        <Setter Property="Height" Value="30" />
+        <Setter Property="Orientation" Value="Horizontal" />
+        <Setter Property="FlowDirection" Value="RightToLeft" />
+    </Style>
+    <Style TargetType="TextBlock" x:Key="replyTextBlock">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="Padding" Value="0 0 10 0" />
+        <Setter Property="FlowDirection" Value="LeftToRight" />
+    </Style>
+    <Style TargetType="StackPanel" x:Key="titlePanel">
+        <Setter Property="Orientation" Value="Horizontal" />
+    </Style>
+    <Style TargetType="TextBlock" x:Key="titleTextBlock">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Padding" Value="20 0 20 0" />
+    </Style>
+    <Style TargetType="DockPanel" x:Key="msgTitlePanel2">
+        <Setter Property="Height" Value="20" />
+    </Style>
+    <Style TargetType="TextBlock" x:Key="dateTextBlock">
+        <Setter Property="Padding" Value="10 0 10 0" />
+        <Setter Property="Foreground" Value="DimGray" />
+    </Style>
+    <Style TargetType="TextBlock" x:Key="gpTextBlock">
+        <Setter Property="Padding" Value="20 0 20 0" />
+        <Setter Property="FontSize" Value="11" />
+        <Setter Property="Foreground" Value="DimGray" />
+    </Style>
+
+
+    <!-- Expander icon change -->
+    <Style TargetType="Expander">
+        <Setter Property="Background" Value="#E3F2FD" />
+        <Setter Property="FlowDirection" Value="RightToLeft" />
+    </Style>
+    <ControlTemplate x:Key="ExpanderControlTemplate1" TargetType="{x:Type Expander}">
+        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="3" SnapsToDevicePixels="True">
+            <DockPanel>
+                <ToggleButton x:Name="HeaderSite" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" DockPanel.Dock="Top" Foreground="{TemplateBinding Foreground}" FontWeight="{TemplateBinding FontWeight}" FontStyle="{TemplateBinding FontStyle}" FontStretch="{TemplateBinding FontStretch}" FontSize="{TemplateBinding FontSize}" FontFamily="{TemplateBinding FontFamily}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Margin="1" MinWidth="0" MinHeight="0" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
+                    <ToggleButton.Style>
+                        <Style TargetType="{x:Type ToggleButton}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                                        <Border Padding="{TemplateBinding Padding}">
+                                            <Grid Background="Transparent" SnapsToDevicePixels="False" Cursor="Hand">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="100"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock x:Name="more" Foreground="DarkGray" HorizontalAlignment="Left" VerticalAlignment="Center" Text="View Full Message" />
+                                                <ContentPresenter x:Name="header" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Grid.Column="1" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="Right" Margin="5 5 10 5" RecognizesAccessKey="True" SnapsToDevicePixels="True" VerticalAlignment="Center" FlowDirection="LeftToRight" />
+                                            </Grid>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsChecked" Value="True">
+                                                <Setter Property="TextBlock.Text" TargetName="more" Value="hide"/>
+                                                <Setter Property="ContentPresenter.Margin" TargetName="header" Value="0" />
+                                                <Setter Property="ContentPresenter.Visibility" TargetName="header" Value="Collapsed"/>
+                                            </Trigger>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="TextBlock.TextDecorations" TargetName="more" Value="Underline"/>
+                                            </Trigger>
+                                            <Trigger Property="IsPressed" Value="True" />
+                                            <Trigger Property="IsEnabled" Value="False" />
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ToggleButton.Style>
+                </ToggleButton>
+                <ContentPresenter x:Name="ExpandSite" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" DockPanel.Dock="Bottom" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" Visibility="Collapsed" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+            </DockPanel>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsExpanded" Value="True">
+                <Setter Property="Visibility" TargetName="ExpandSite" Value="Visible"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <!--><Style TargetType="TextBlock" x:Key="msgTextBlock">
+        <Setter Property="Padding" Value="10" />
+        <Setter Property="Margin" Value="0 1 0 1" />
+        <Setter Property="Background" Value="#E3F2FD" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="FlowDirection" Value="LeftToRight" />
+    </Style>
+    <Style TargetType="DockPanel" x:Key="ansPanel">
+        <Setter Property="FlowDirection" Value="LeftToRight" />
+        <Setter Property="Background" Value="#FCE7CC" />
+        <Setter Property="Margin" Value="0 2 0 2" />
+    </Style>
+    <Style TargetType="TextBlock" x:Key="ansdDate">
+        <Setter Property="Foreground" Value="DarkGray" />
+        <Setter Property="Padding" Value="10 0 10 5" />
+    </Style>
+    <Style TargetType="TextBlock" x:Key="ansdGP">
+        <Setter Property="Foreground" Value="DarkGray" />
+        <Setter Property="Padding" Value="10 0 10 5" />
+    </Style>
+    <Style TargetType="TextBlock" x:Key="answer">
+        <Setter Property="Padding" Value="10" />
+        <Setter Property="Margin" Value="0 1 0 1" />
+        <Setter Property="FlowDirection" Value="LeftToRight" />
+    </Style>-->
+    <Style TargetType="DockPanel" x:Key="ansInputPanel">
+        <Setter Property="FlowDirection" Value="LeftToRight" />
+        <Setter Property="Margin" Value="0 1 0 1" />
+        <Setter Property="Background" Value="White" />
+    </Style>
+    <Style TargetType="Button" x:Key="btnAnsSubmit">
+        <Setter Property="Width" Value="60" />
+        <Setter Property="Height" Value="Auto" />
+        <Setter Property="Margin" Value="2" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Key.IsHidden}" Value="true">
+                <Setter Property="IsEnabled" Value="False" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    <Style TargetType="TextBox" x:Key="ansInputTextBox">
+        <Setter Property="Padding" Value="5" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="Height" Value="100" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="FlowDirection" Value="LeftToRight" />
+        <Setter Property="AcceptsReturn" Value="True" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Key.IsHidden}" Value="true">
+                <Setter Property="IsEnabled" Value="False" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="Border" x:Key="normalModeBorder">
+        <Style.Triggers>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsHidden}" Value="true" />
+                    <Condition Binding="{Binding MessageType}" Value="1" />
+                </MultiDataTrigger.Conditions>
+                <Setter Property="BorderBrush" Value="White" />
+                <Setter Property="BorderThickness" Value="1" />
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+    <Style TargetType="DockPanel" x:Key="normalModeMsgPanel">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding MessageType}" Value="0">
+                <Setter Property="FlowDirection" Value="LeftToRight" />
+                <Setter Property="Background" Value="#E3F2FD" />
+                <Setter Property="Margin" Value="0 2 0 2" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding MessageType}" Value="1">
+                <Setter Property="FlowDirection" Value="LeftToRight" />
+                <Setter Property="Background" Value="#FCE7CC" />
+                <Setter Property="Margin" Value="0 2 0 2" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsHidden}" Value="true">
+                <Setter Property="FlowDirection" Value="LeftToRight" />
+                <Setter Property="Background" Value="LightGray" />
+                <Setter Property="Margin" Value="0 2 0 2" />
+                <Setter Property="IsEnabled" Value="false" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="DockPanel" x:Key="normalModeMsgDetailPanel">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding MessageType}" Value="0">
+                <Setter Property="DockPanel.Dock" Value="Bottom" />
+                <Setter Property="Visibility" Value="Collapsed" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding MessageType}" Value="1">
+                <Setter Property="DockPanel.Dock" Value="Bottom" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="TextBlock" x:Key="normalModeDateTextBox">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding MessageType}" Value="0">
+                <Setter Property="Visibility" Value="Collapsed" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding MessageType}" Value="1">
+                <Setter Property="DockPanel.Dock" Value="Right" />
+                <Setter Property="Foreground" Value="DarkGray" />
+                <Setter Property="Padding" Value="10 0 10 5" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="TextBlock" x:Key="normalModeUserTextBox">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding MessageType}" Value="0">
+                <Setter Property="Visibility" Value="Collapsed" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding MessageType}" Value="1">
+                <Setter Property="Foreground" Value="DarkGray" />
+                <Setter Property="Padding" Value="10 0 10 5" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="ToggleButton" x:Key="adminModeToggle">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsAdmin}" Value="true">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ToggleButton">
+                            <Border Padding="0 0 5 0" Cursor="Hand">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsAdmin}" Value="false">
+                <Setter Property="Visibility" Value="Collapsed" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="TextBlock" x:Key="normalModeMsgTextBlock">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding MessageType}" Value="0">
+                <Setter Property="Padding" Value="10" />
+                <Setter Property="Margin" Value="0 1 0 1" />
+                <Setter Property="Background" Value="#E3F2FD" />
+                <Setter Property="TextWrapping" Value="Wrap" />
+                <Setter Property="FlowDirection" Value="LeftToRight" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding MessageType}" Value="1">
+                <Setter Property="Padding" Value="10" />
+                <Setter Property="Margin" Value="0 1 0 1" />
+                <Setter Property="FlowDirection" Value="LeftToRight" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsHidden}" Value="true">
+                <Setter Property="Padding" Value="10" />
+                <Setter Property="Margin" Value="0 1 0 1" />
+                <Setter Property="FlowDirection" Value="LeftToRight" />
+                <Setter Property="Background" Value="LightGray" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="StackPanel" x:Key="msgThreadHiddenPanel">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Key.IsHidden}" Value="true">
+                <Setter Property="Background" Value="LightGray" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="Expander" x:Key="expander">
+        <Setter Property="Header" Value="{Binding Key.MsgSummary}" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Key.IsExpanded}" Value="True">
+                <Setter Property="IsExpanded" Value="True" />
+                <Setter Property="Background" Value="#E3F2FD" />
+                <Setter Property="FlowDirection" Value="RightToLeft" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Key.IsExpanded}" Value="False">
+                <Setter Property="IsExpanded" Value="False" />
+                <Setter Property="Background" Value="#E3F2FD" />
+                <Setter Property="FlowDirection" Value="RightToLeft" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Key.IsHidden}" Value="true">
+                <Setter Property="Background" Value="LightGray" />
+                <Setter Property="BorderBrush" Value="White" />
+                <Setter Property="BorderThickness" Value="1" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+</ResourceDictionary>

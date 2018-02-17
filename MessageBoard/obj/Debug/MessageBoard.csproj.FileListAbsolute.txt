@@ -1,0 +1,15 @@
+C:\Users\Owner\Documents\Visual Studio 2017\Projects\MessageBoard\MessageBoard\bin\Debug\MessageBoard.exe
+C:\Users\Owner\Documents\Visual Studio 2017\Projects\MessageBoard\MessageBoard\bin\Debug\MessageBoard.pdb
+C:\Users\Owner\Documents\Visual Studio 2017\Projects\MessageBoard\MessageBoard\obj\Debug\MessageBoard.csprojResolveAssemblyReference.cache
+C:\Users\Owner\Documents\Visual Studio 2017\Projects\MessageBoard\MessageBoard\obj\Debug\MainWindow.g.cs
+C:\Users\Owner\Documents\Visual Studio 2017\Projects\MessageBoard\MessageBoard\obj\Debug\App.g.cs
+C:\Users\Owner\Documents\Visual Studio 2017\Projects\MessageBoard\MessageBoard\obj\Debug\MessageBoard_MarkupCompile.cache
+C:\Users\Owner\Documents\Visual Studio 2017\Projects\MessageBoard\MessageBoard\obj\Debug\MessageBoard_MarkupCompile.lref
+C:\Users\Owner\Documents\Visual Studio 2017\Projects\MessageBoard\MessageBoard\obj\Debug\MainWindow.baml
+C:\Users\Owner\Documents\Visual Studio 2017\Projects\MessageBoard\MessageBoard\obj\Debug\Styles.baml
+C:\Users\Owner\Documents\Visual Studio 2017\Projects\MessageBoard\MessageBoard\obj\Debug\MessageBoard.g.resources
+C:\Users\Owner\Documents\Visual Studio 2017\Projects\MessageBoard\MessageBoard\obj\Debug\MessageBoard.Properties.Resources.resources
+C:\Users\Owner\Documents\Visual Studio 2017\Projects\MessageBoard\MessageBoard\obj\Debug\MessageBoard.csproj.GenerateResource.Cache
+C:\Users\Owner\Documents\Visual Studio 2017\Projects\MessageBoard\MessageBoard\obj\Debug\MessageBoard.exe
+C:\Users\Owner\Documents\Visual Studio 2017\Projects\MessageBoard\MessageBoard\obj\Debug\MessageBoard.pdb
+C:\Users\Owner\Documents\Visual Studio 2017\Projects\MessageBoard\MessageBoard\obj\Debug\App.baml
